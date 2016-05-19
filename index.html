@@ -14,6 +14,44 @@
     <![endif]-->
 
     <title>Dawn-combat by Ellil1</title>
+    
+    <script>
+  function combatRound(){
+  
+  var attackerStrength = parseInt(document.getElementById("attacker").value)
+  var defenderStrength = parseInt(document.getElementById("defender").value)
+
+var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
+var roll = Math.floor(Math.random()*100)
+var combatDifference = combatRatio -roll
+
+if(combatDifference>0){
+var attackerStrengthAfter = Math.ceil(attackerStrength -=combatDifference/2)
+var defenderStrengthAfter = defenderStrength -=combatDifference
+
+}
+else{
+var attackerStrengthAfter = Math.ceil(attackerStrength +=combatDifference/2)
+var defenderStrengthAfter = defenderStrength +=combatDifference
+}
+
+var commentary = "The Combat Ratio is " + combatRatio + ". The roll was "+roll+". The Combat Difference is "+combatDifference+".\nAttacker has "+attackerStrengthAfter+" Combat Strength left. Defender has "+defenderStrengthAfter+" Combat Strength left."
+
+document.getElementById("commentary2").value=commentary
+
+document.getElementById("attacker").value = attackerStrengthAfter
+document.getElementById("defender").value = defenderStrengthAfter
+  }
+
+function combatEstimator(){
+  
+  var attackerStrength = parseInt(document.getElementById("attacker").value)
+  var defenderStrength = parseInt(document.getElementById("defender").value)
+var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
+document.getElementById("commentary1").value="The attacker needs to roll above "+combatRatio
+}
+      
+    </script>
   </head>
 
   <body>
@@ -24,15 +62,17 @@
         <a href="https://github.com/Ellil1/Dawn-Combat" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
+<textarea id="attacker" rows="4" cols="30" placeholder="Enter Attacker Combat Strength"></textarea>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-        </section>
-      </div>
-    </div>
+<textarea id="defender" rows="4" cols="30" placeholder="Enter Defender Combat Strength"></textarea>
+<br>
+<textarea id="commentary1" rows="4" cols="30" placeholder="Number the Attacker needs to roll above."></textarea>
+<button type="button" onclick="combatEstimator()">Calculate the combat ratio</button> 
 
-  
+  <br>
+<textarea id="commentary2" rows="4" cols="80"></textarea>
+
+<button type="button" onclick="combatRound()">Test !</button> 
+
   </body>
 </html>
