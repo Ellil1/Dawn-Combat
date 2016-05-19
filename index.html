@@ -18,12 +18,12 @@
     <script>
   function combatRound(){
   
-  var attackerStrength = parseInt(document.getElementById("attacker").value)
-  var defenderStrength = parseInt(document.getElementById("defender").value)
+  var attackerStrength = Math.floor(parseInt(document.getElementById("attacker").value))
+  var defenderStrength = Math.floor(parseInt(document.getElementById("defender").value))
 
 var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
 var roll = Math.floor(Math.random()*100)
-var combatDifference = combatRatio -roll
+var combatDifference = roll - combatRatio 
 
 if(combatDifference>0){
 var attackerStrengthAfter = Math.ceil(attackerStrength -=combatDifference/2)
@@ -31,11 +31,15 @@ var defenderStrengthAfter = defenderStrength -=combatDifference
 
 }
 else{
-var attackerStrengthAfter = Math.ceil(attackerStrength +=combatDifference/2)
-var defenderStrengthAfter = defenderStrength +=combatDifference
+var attackerStrengthAfter = attackerStrength +=combatDifference
+var defenderStrengthAfter = Math.ceil(defenderStrength +=combatDifference/2)
 }
 
-var commentary = "The Combat Ratio is " + combatRatio + ". The roll was "+roll+". The Combat Difference is "+combatDifference+".\nAttacker has "+attackerStrengthAfter+" Combat Strength left. Defender has "+defenderStrengthAfter+" Combat Strength left."
+var attackerCommentary = "Attacker has "+attackerStrengthAfter+" Combat Strength left. "
+var defenderCommentary = "Defender has "+defenderStrengthAfter+" Combat Strength left."
+
+
+var commentary = "The Combat Ratio is " + combatRatio + ". The roll was "+roll+". The Combat Difference is "+combatDifference+".\n" + attackerCommentary + defenderCommentary 
 
 document.getElementById("commentary2").value=commentary
 
@@ -43,12 +47,15 @@ document.getElementById("attacker").value = attackerStrengthAfter
 document.getElementById("defender").value = defenderStrengthAfter
   }
 
+
+
 function combatEstimator(){
   
   var attackerStrength = parseInt(document.getElementById("attacker").value)
   var defenderStrength = parseInt(document.getElementById("defender").value)
 var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
 document.getElementById("commentary1").value="The attacker needs to roll above "+combatRatio
+
 }
       
     </script>
