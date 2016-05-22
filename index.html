@@ -29,8 +29,8 @@ var roll = Math.floor(Math.random()*100)
 var combatDifference = roll - combatRatio 
 
 if(combatDifference>0){
-var attackerStrengthAfter = Math.ceil(attackerStrength -=combatDifference/2)
-var defenderStrengthAfter = defenderStrength -=combatDifference
+var attackerStrengthAfter = Math.ceil(attackerStrength - combatDifference/2)
+var defenderStrengthAfter = defenderStrength - combatDifference
 
 }
 else{
@@ -38,11 +38,35 @@ var attackerStrengthAfter = attackerStrength + combatDifference
 var defenderStrengthAfter = Math.ceil(defenderStrength + combatDifference/2)
 }
 
-var attackerCommentary = "Attacker has "+attackerStrengthAfter+" Combat Strength left. "
-var defenderCommentary = "Defender has "+defenderStrengthAfter+" Combat Strength left."
+if(attackerStrengthAfter <=0){attackerStrengthAfter = 0 }
+if(defenderStrengthAfter <=0){defenderStrengthAfter = 0 }
+
+if((defenderStrengthAfter<=0) && (attackerStrengthAfter<=0)){
+var attackerCommentary = " Attacker has no Combat Strength left. "
+var defenderCommentary = " Defender has no Combat Strength left. \n It's a draw ! Everybody's dead !"
+
+}
+
+else if(defenderStrengthAfter<=0){
+var attackerCommentary = " Attacker has "+attackerStrengthAfter+" Combat Strength left. Attacker wins !"
+var defenderCommentary = " Defender has no Combat Strength left."
+
+}
+
+else if(attackerStrengthAfter<=0){
+var attackerCommentary = " Attacker has no Combat Strength left. "
+var defenderCommentary = " Defender has "+defenderStrengthAfter+" Combat Strength left. Defender wins !"
+
+}
 
 
-var commentary = "The Combat Ratio is " + combatRatio + ". The roll was "+roll+". The Combat Difference is "+combatDifference+".\n" + attackerCommentary + defenderCommentary 
+
+else{
+var attackerCommentary = " Attacker has "+attackerStrengthAfter+" Combat Strength left. "
+var defenderCommentary = " Defender has "+defenderStrengthAfter+" Combat Strength left."
+}
+
+var commentary = "The Combat Ratio is " + combatRatio + ". The roll was "+roll+". The Combat Difference is "+combatDifference+".\n" + attackerCommentary + "\n" + defenderCommentary 
 
 document.getElementById("commentary2").value=commentary
 
@@ -61,6 +85,11 @@ function combatEstimator(){
 var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
 document.getElementById("commentary1").value="The attacker needs to roll above "+combatRatio
 
+}
+
+function clearLog(){
+combatLog = []
+document.getElementById("combatLog").value = combatLog.join("\n")
 }
       
     </script>
@@ -87,6 +116,6 @@ document.getElementById("commentary1").value="The attacker needs to roll above "
 <button type="button" onclick="combatRound()">Fight !</button>
 <br>
  <textarea id="combatLog" rows="5" cols="10" placeholder="Combat Log"></textarea>
-
+<button type="button" onclick="clearLog()">Clear Log</button>
   </body>
 </html>
