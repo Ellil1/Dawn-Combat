@@ -16,11 +16,14 @@
     <title>Dawn-combat by Ellil1</title>
     
     <script>
+
+combatLog = []
+
   function combatRound(){
   
   var attackerStrength = Math.floor(parseInt(document.getElementById("attacker").value))
   var defenderStrength = Math.floor(parseInt(document.getElementById("defender").value))
-
+combatLog.push(attackerStrength + " " + defenderStrength + "\n")
 var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
 var roll = Math.floor(Math.random()*100)
 var combatDifference = roll - combatRatio 
@@ -31,8 +34,8 @@ var defenderStrengthAfter = defenderStrength -=combatDifference
 
 }
 else{
-var attackerStrengthAfter = attackerStrength +=combatDifference
-var defenderStrengthAfter = Math.ceil(defenderStrength +=combatDifference/2)
+var attackerStrengthAfter = attackerStrength + combatDifference
+var defenderStrengthAfter = Math.ceil(defenderStrength + combatDifference/2)
 }
 
 var attackerCommentary = "Attacker has "+attackerStrengthAfter+" Combat Strength left. "
@@ -45,6 +48,8 @@ document.getElementById("commentary2").value=commentary
 
 document.getElementById("attacker").value = attackerStrengthAfter
 document.getElementById("defender").value = defenderStrengthAfter
+document.getElementById("combatLog").value = combatLog
+
   }
 
 
@@ -73,13 +78,15 @@ document.getElementById("commentary1").value="The attacker needs to roll above "
 
 <textarea id="defender" rows="4" cols="30" placeholder="Enter Defender Combat Strength"></textarea>
 <br>
-<textarea id="commentary1" rows="4" cols="30" placeholder="Number the Attacker needs to roll above."></textarea>
+<textarea id="commentary1" rows="2" cols="35" placeholder="Number the Attacker needs to roll above."></textarea>
 <button type="button" onclick="combatEstimator()">Calculate the combat ratio</button> 
 
   <br>
 <textarea id="commentary2" rows="4" cols="80"></textarea>
 
-<button type="button" onclick="combatRound()">Fight !</button> 
+<button type="button" onclick="combatRound()">Fight !</button>
+<br>
+ <textarea id="combatLog" rows="5" cols="10" placeholder="Combat Log"></textarea>
 
   </body>
 </html>
