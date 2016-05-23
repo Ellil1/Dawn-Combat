@@ -23,7 +23,7 @@ combatLog = []
   
   var attackerStrength = Math.floor(parseInt(document.getElementById("attacker").value))
   var defenderStrength = Math.floor(parseInt(document.getElementById("defender").value))
-combatLog.push(attackerStrength + " " + defenderStrength)
+combatLog.push(attackerStrength + " vs " + defenderStrength)
 var combatRatio = Math.floor(defenderStrength/(attackerStrength+defenderStrength)*100)
 var roll = Math.floor(Math.random()*100)
 var combatDifference = roll - combatRatio 
